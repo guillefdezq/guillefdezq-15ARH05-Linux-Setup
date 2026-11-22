@@ -1,6 +1,16 @@
 *An opinionated, unified setup guide with tips and tricks for running Linux on the Lenovo Legion 5 (15ARH05).*
 *Una guía unificada y adaptada a mis preferencias para la ejecución de Linux en el portatil Lenovo legion 5 (15ARH05)*
 
+## Documentación y Wiki
+
+Las páginas y archivos de la [Wiki](https://github.com/guillefdezq/guillefdezq-15ARH05-Linux-Setup/wiki) se mantienen en [`docs/`](docs/). Edita allí los Markdown, imágenes y otros adjuntos; al publicar cambios en `main`, la acción **Sync docs to Wiki** los copia a la Wiki conservando su historial Git. También puede ejecutarse manualmente desde Actions.
+
+La sincronización es de `docs/` hacia la Wiki. Los cambios hechos directamente en la Wiki no vuelven al repositorio y pueden ser sobrescritos al publicar `docs/`. Las páginas eliminadas o renombradas en `docs/` se conservan en la Wiki para evitar borrados accidentales; su retirada requiere una revisión manual. Los enlaces entre páginas deben usar sus nombres de Wiki, sin la extensión `.md`.
+
+Para actualizar Save Power en la Wiki, edita [`docs/save-power.md`](docs/save-power.md). El fichero `save-power.md` de la raíz se conserva como copia previa y no participa en la sincronización.
+
+La acción intenta autenticarse con `GITHUB_TOKEN`. Si GitHub rechaza la escritura en la Wiki con HTTP 403 o `permission denied`, añade el secreto de Actions `WIKI_TOKEN` con un token de una cuenta con acceso de escritura a esta Wiki y vuelve a ejecutar la acción. Puede configurarse desde **Settings → Secrets and variables → Actions**, o con `gh secret set WIKI_TOKEN --repo guillefdezq/guillefdezq-15ARH05-Linux-Setup` (entrada interactiva). No incluyas el token en los archivos del repositorio.
+
 > [!WARNING]
 > 🚧 **WIP — Trabajo en progreso / Work in Progress**
 >

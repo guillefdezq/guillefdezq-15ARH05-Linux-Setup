@@ -1,0 +1,42 @@
+name: Sync docs to Wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '.github/scripts/sync-wiki.sh'
+      - '.github/workflows/sync-wiki.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-wiki
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Publish documentation
+        env:
+          GH_TOKEN: ${{ secrets.WIKI_TOKEN || github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh auth setup-git
+          wiki_dir="$RUNNER_TEMP/wiki"
+          git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" "$wiki_dir"
+          if ! bash .github/scripts/sync-wiki.sh "$wiki_dir"; then
+            echo '::error::Wiki publication failed. For HTTP 403 or permission denied, configure WIKI_TOKEN with a token belonging to a user with write access to this Wiki, then rerun this workflow. No force push is used.'
+            exit 1
+          fi
